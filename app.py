@@ -1,9 +1,7 @@
+import secrets
 import sqlite3
 
 import click
-import secrets
-
-
 from flask import Flask, current_app, g
 
 app = Flask(__name__)
@@ -93,3 +91,29 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+# ----------------------------------Register client----------------------------------
+
+def register_client_to_db(nom, prenom, adresse, tel, username, password):
+    connection = get_db()
+    cur = connection.cursor()
+    cur.execute('INSERT INTO client(nom, prenom, adresse, tel, username, password) VALUES (?, ?, ?, ?, ?, ?)',
+                (nom, prenom, adresse, tel, username, password))
+    connection.commit()
+    close_db()
+
+# ---------------------------------Check client in database-----------------------------
+
+def check_client(username, password):
+    connection = get_db()
+    cur = connection.cursor()
+    cur.execute('SELECT username, password FROM client WHERE username=? AND password=?',
+                (username, password))
+
+    resultat = cur.fetchone()
+    if resultat:
+        return True
+    else:
+        return False
