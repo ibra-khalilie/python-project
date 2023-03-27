@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <link rel="stylesheet" href="/static/desgin/style.css">
-    <link rel="stylesheet" href="/static/desgin/style.js">
 </head>
 
 <body>
@@ -20,7 +19,7 @@
 
             <a href="#" class="logo"> <img src="/templates/logo.png" alt=""> <span>Gestion de </span>Commande</a>
 
-            <form id="searchbox" method="" action="../control/main.ctrl.php">
+            <form id="searchbox" method="" action="">
                 <div class="search-input">
                     <input name="recherche" type="text" size="12" placeholder="Pain, Lait, Oeuf...">
                     <button id="button-submit" type="submit">Search</button>
@@ -54,19 +53,62 @@
 
     </nav>
 
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <h1>Welcome to the Order Management application</h1>
-
-    <ul>
+    <br /><br />
+    <section class="zone_produits">
         {% for product in products %}
-        <li>{{ product[0] }} - <img src="{{ product[1] }}" alt=" image"></li>
+        <article>
+            <img src="{{ product.image }}" alt=" image">
+            <p>{{ product.libelle }}</p>
+            <p>Prix: {{ product.prixUnitaire }}</p>
+        </article>
         {% endfor %}
-    </ul>
+    </section>
 
 
+</body>
+
+<footer>
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h3>Pays</h3>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> France </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> inde </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> afrique </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> australie </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> russie </a>
+            </div>
+
+            <div class="box">
+                <h3>promo et bon plan</h3>
+                <a href="#catalogue"> <i class="fas fa-arrow-right"></i> catalogue </a>
+            </div>
+
+            <div class="box">
+                <h3>Reseaux</h3>
+                <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
+                <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
+                <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
+                <a href="#"> <i class="fab fa-linkedin"></i> linkedin </a>
+            </div>
+
+            <div class="box">
+                <h3>service</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> casono drive </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> point retrait casono </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> traiteur casono </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> scan'Express </a>
+            </div>
+
+
+        </div>
+
+    </section>
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="/static/desgin/style.js"></script>
-</body>
+</footer>
 
 </html>

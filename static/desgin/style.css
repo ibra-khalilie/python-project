@@ -259,6 +259,73 @@ body {
     flex-direction: column;
 }
 
+.zone_produits {
+    flex: 1 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+article {
+    width: 19em;
+    height: 24em;
+    margin: 1em;
+    padding: 1em;
+    border-radius: 0.5em;
+    box-shadow: 5px 5px 3px lightgray;
+    display: flex;
+    flex-direction: column;
+}
+
+article>a {
+    font-size: 1.3em;
+}
+
+article>p {
+    font-size: 1.4em;
+}
+
+/*---------------footer--------------------------*/
+
+footer {
+    flex-shrink: 0;
+}
+
+.footer {
+    background: red;
+}
+
+
+.footer .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 1.5em;
+}
+
+.footer .box-container .box h3 {
+    color: rgb(16, 12, 59);
+    font-size: 2.2rem;
+    padding: 1rem 0;
+}
+
+.footer .box-container .box a {
+    color: rgb(243, 235, 222);
+    font-size: 1.4rem;
+    display: block;
+    padding: 1rem 0;
+}
+
+.footer .box-container .box a i {
+    padding-right: .5rem;
+    color: var(--black);
+}
+
+.footer .box-container .box a:hover i {
+    padding-right: 2rem;
+
+}
+
 
 
 /********************compte****************************/

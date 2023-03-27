@@ -49,9 +49,18 @@ INSERT INTO produit (prixUnitaire, libelle,image)
 VALUES
 (10,'chemise','/static/img/1.jpg'),
 (20,'montre','/static/img/2.jpg'),
-(10.4,'ordinateur','/static/img/3.jpg'),
+(10,'ordinateur','/static/img/3.jpg'),
 (10.4,'robe','/static/img/4.jpg'),
-(10.4,'trotinette','/static/img/5.jpg');
+(10.4,'robe','/static/img/5.jpg'),
+(10.4,'robe','/static/img/6.jpg'),
+(10.4,'robe','/static/img/7.jpg'),
+(10.4,'robe','/static/img/8.jpg'),
+(10.4,'robe','/static/img/9.jpg'),
+(10.4,'robe','/static/img/10.jpg'),
+(10.4,'robe','/static/img/11.jpg'),
+(10.4,'robe','/static/img/12.jpg'),
+(10.4,'robe','/static/img/13.jpg'),
+(10.4,'robe','/static/img/15.jpg');
 
 INSERT INTO commande (idclient, dateComande)
 VALUES

@@ -100,7 +100,7 @@ def check_client(username, password):
 def listOfProducts():
     connection = get_db()
     cur = connection.cursor()
-    cur.execute("SELECT libelle,image from PRODUIT")
+    cur.execute("SELECT libelle,image,prixUnitaire from PRODUIT")
     resultats = cur.fetchall()
 
     return resultats
