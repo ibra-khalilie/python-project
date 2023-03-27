@@ -7,3 +7,6 @@ envir/
 .venv/
 
 /database.db
+/app.py.LOCAL
+/app.py.LOCAL
+/app.py.REMOTE
