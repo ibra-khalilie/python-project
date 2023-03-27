@@ -3,11 +3,58 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de commande</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <link rel="stylesheet" href="/static/desgin/style.css">
+    <link rel="stylesheet" href="/static/desgin/style.js">
 </head>
 
 <body>
+    <nav class="entete">
+        <header class="header">
+
+            <a href="#" class="logo"> <img src="/templates/logo.png" alt=""> <span>Gestion de </span>Commande</a>
+
+            <form id="searchbox" method="" action="../control/main.ctrl.php">
+                <div class="search-input">
+                    <input name="recherche" type="text" size="12" placeholder="Pain, Lait, Oeuf...">
+                    <button id="button-submit" type="submit">Search</button>
+                </div>
+            </form>
+
+
+
+
+            <div id="login-btn">
+                <bouton class="btn">connection</bouton>
+                <i class="far fa-user"></i>
+            </div>
+
+
+        </header>
+        <div class="login-form-container">
+
+            <span class="fas fa-times " id="close-login-form"></span>
+
+            <form action="/login" method="post">
+                <h3>Login</h3>
+                <input type="username" placeholder="username" name="username" class="box" required>
+                <input type="password" placeholder="password" name="password" class="box" required>
+                <p>Forgot your password?<a href="#">Click here</a></p>
+                <input type="submit" value="connect" class="btn">
+                <p>you don't have an account ? <a href="/register">create an account</a></p>
+            </form>
+
+        </div>
+
+    </nav>
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     <h1>Welcome to the Order Management application</h1>
 
     <ul>
@@ -16,6 +63,10 @@
         {% endfor %}
     </ul>
 
+
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="/static/desgin/style.js"></script>
 </body>
 
 </html>

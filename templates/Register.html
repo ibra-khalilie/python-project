@@ -5,104 +5,67 @@
     <meta charset="UTF-8">
     <title>Register Now</title>
 
-    <style>
-        body {
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            margin: 50px auto;
-            max-width: 500px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        form {
-            display: inline-block;
-            text-align: left;
-            width: 100%;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            text-align: left;
-        }
-
-        input[type="text"],
-        input[type="tel"],
-        input[type="password"] {
-            border-radius: 3px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-            font-size: 16px;
-            margin-bottom: 10px;
-            padding: 10px;
-            width: 100%;
-        }
-
-        button[type="submit"] {
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 3px;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-            padding: 10px;
-            width: 100%;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #3e8e41;
-        }
-
-        a {
-            color: #4CAF50;
-            font-size: 14px;
-            margin-top: 10px;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/desgin/style.css">
+    <link rel="stylesheet" href="/static/desgin/compte.css">
 </head>
 
-<body>
+<body id="compte_body">
 
-    <div class="container">
+    <body id="compte_body">
+        <div id="compte_conteneur">
+            <form name="inscription" action="/register" method="post">
+                <fieldset class="compte_fieldset">
+                    <legend class="compte_legend">Register Now</legend>
+                    <div class="compte_label">
+                        Nom
+                    </div>
+                    <div class="compte_input">
+                        <input type="text" name="nom" class="compte_champ" placeholder="nom" required />
+                    </div><br />
+                    <div class="compte_label">
+                        Prénom
+                    </div>
+                    <div class="compte_input">
+                        <input type="text" name="prenom" class="compte_champ" placeholder="prenom" required />
+                    </div><br />
+                    <div class="compte_label">
+                        Adresse
+                    </div>
+                    <div class="compte_input">
+                        <input type="text" name="adresse" class="compte_champ" placeholder="Adresse" required />
+                    </div><br />
+                    <div class="compte_label">
+                        Téléphone
+                    </div>
+                    <div class="compte_input">
+                        <input type="text" name="tel" class="compte_champ" placeholder="Téléphone" required />
+                    </div><br />
+                    <div class="compte_label">
+                        Username
+                    </div>
+                    <div class="compte_input">
+                        <input type="text" name="username" class="compte_champ" placeholder="Username" required />
+                    </div><br />
+                    <div class="compte_label">
+                        Mot de passe
+                    </div>
+                    <div class="compte_input">
+                        <input type="password" name="password" class="compte_champ" placeholder="Mot de passe"
+                            required />
+                    </div><br />
+                    <div class="compte_label">
+                        Confirmer
+                    </div>
+                    <div class="compte_input">
+                        <input type="password" name="remdp" class="compte_champ" placeholder="Mot de passe" required />
+                    </div><br />
 
-        <form action="/register" method="post">
-            <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="nom" required>
-
-            <label for="prenom">Prénom :</label>
-            <input type="text" id="prenom" name="prenom" required>
-
-            <label for="adresse">Adresse :</label>
-            <input type="text" id="adresse" name="adresse" required>
-
-            <label for="tel">Téléphone :</label>
-            <input type="tel" id="tel" name="tel" required>
-
-            <label for="username">Username :</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Password :</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="/login">Login</a></p>
-    </div>
-
-</body>
+                    <div class="compte_input">
+                        <input type="submit" name="sinscrire" value="S'inscrire" class="compte_champ" />
+                    </div><br />
+                </fieldset>
+            </form>
+        </div>
+    </body>
 
 </html>
