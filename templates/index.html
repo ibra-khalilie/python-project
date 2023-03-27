@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+
+</head>
+
+<body>
+    <h1>Welcome to the Order Management application</h1>
+
+    <ul>
+        {% for product in products %}
+        <li>{{ product[0] }} - <img src="{{ product[1] }}" alt=" image"></li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>

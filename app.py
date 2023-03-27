@@ -102,9 +102,8 @@ def listOfProducts():
     cur = connection.cursor()
     cur.execute("SELECT libelle,image from PRODUIT")
     resultats = cur.fetchall()
-    for produit in resultats:
-        print("{} - {}".format(produit[0], produit[1]))
-    return render_template("home.html", produits=resultats)
+
+    return resultats
 
 
 # ----------------------------------root-----------------------------------------------
@@ -112,7 +111,8 @@ def listOfProducts():
 
 @app.route("/")
 def index():
-    return render_template("home.html")
+    products = listOfProducts()
+    return render_template("index.html", products=products)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -142,12 +142,15 @@ def login():
 
         return redirect(url_for("home"))
     else:
-        redirect(url_for("index"))
+        return render_template("login.html")
 
 
-@app.route("/home", methods=["GET"])
+@app.route("/home", methods=["GET", "POST"])
 def home():
-    return listOfProducts()
+    if "username" in session:
+        return redirect(url_for("index"))
+    else:
+        return "Identifiant or Password is wrond!"
 
 
 @app.route("/logout")

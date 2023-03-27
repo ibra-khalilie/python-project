@@ -47,11 +47,11 @@ VALUES
 
 INSERT INTO produit (prixUnitaire, libelle,image)
 VALUES
-(10,'chemise','chemise.png'),
-(20,'montre','montre.png'),
-(10.4,'ordinateur','ordinateur1.png'),
-(10.4,'robe','robe.jpg'),
-(10.4,'trotinette','trotinette1.png');
+(10,'chemise','/static/img/1.jpg'),
+(20,'montre','/static/img/2.jpg'),
+(10.4,'ordinateur','/static/img/3.jpg'),
+(10.4,'robe','/static/img/4.jpg'),
+(10.4,'trotinette','/static/img/5.jpg');
 
 INSERT INTO commande (idclient, dateComande)
 VALUES
