@@ -106,6 +106,22 @@ def listOfProducts():
     return results
 
 
+#---list Products Of Customer-------
+
+def listProductsOfCustomer(customer_id):
+    connexion = get_db()
+    cur = connexion.cursor()
+    cur.execute("""SELECT p.libelle, p.price, pc.quantity 
+                   FROM customer c
+                   INNER JOIN command cmd ON c.idcustomer = cmd.idcustomer
+                   INNER JOIN product_command pc ON cmd.idcommand = pc.idcommand
+                   INNER JOIN product p ON pc.idProduct = p.idProduct
+                   WHERE c.idcustomer = ?;""",
+                (customer_id,))
+    productsOfCustomer = cur.fetchall()
+    return productsOfCustomer
+
+
 # ----------------------------------root-----------------------------------------------
 
 
@@ -154,6 +170,7 @@ def home():
         return redirect(url_for("index"))
     else:
         return "Identifiant or Password is wrond!"
+
 
 
 @app.route("/logout")
