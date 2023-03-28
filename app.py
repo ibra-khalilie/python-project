@@ -69,7 +69,7 @@ def register_client_to_db(name, firstname, adress, phone, username, password):
     connection = get_db()
     cur = connection.cursor()
     cur.execute(
-        "INSERT INTO client(name, firstname, adress, phone, username, password) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO customer(name, firstname, adress, phone, username, password) VALUES (?, ?, ?, ?, ?, ?)",
         (name, firstname, adress, phone, username, password),
     )
     connection.commit()
@@ -83,7 +83,7 @@ def check_client(username, password):
     connection = get_db()
     cur = connection.cursor()
     cur.execute(
-        "SELECT username, password FROM client WHERE username=? AND password=?",
+        "SELECT username, password FROM customer WHERE username=? AND password=?",
         (username, password),
     )
 
@@ -139,8 +139,11 @@ def login():
 
         if check_client(username, password):
             session["username"] = username
-
-        return redirect(url_for("home"))
+            return redirect(url_for("index"))
+        else:
+            return render_template(
+                "login.html", error="Identifiant or Password is wrong!"
+            )
     else:
         return render_template("login.html")
 
