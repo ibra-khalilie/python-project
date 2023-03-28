@@ -26,14 +26,33 @@
                 </div>
             </form>
 
+            <div">
 
 
+                {% if username %}
 
-            <div id="login-btn">
-                <bouton class="btn">connection</bouton>
-                <p>Bienvenue {{ username }} !</p>
+                <form action="{{ url_for('logout') }}">
+                    <button id="logout" type="submit">Déconnexion</button>
+                    {{ username }}
+                </form>
+                <!-- 
+                    <button id="logout" class="btn">Deconnexion</button>
+                    {{ username }}-->
+
+                {% else %}
+                <!--
+                <form action="{{ url_for('login') }}" method="POST">
+                    <button id="login" type="submit">connexion</button>
+
+                </form>
+          -->
+                <button id="login" class="btn">Connexion</button>
+                {% endif %}
+
+
                 <i class="far fa-user"></i>
-            </div>
+                </div>
+
 
 
         </header>
@@ -67,8 +86,8 @@
         </article>
         {% endfor %}
     </section>
-  
-      
+
+
 
 </body>
 

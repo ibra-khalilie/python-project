@@ -159,8 +159,15 @@ def commander():
 @app.route("/")
 def index():
     products = listOfProducts()
+    if "username" in session:
+        username = session["username"]
+    else:
+        username = None
+        
+    products = listOfProducts()
  
-    return render_template("index.html", products=products)
+    return render_template("index.html", products=products, username=username)
+
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -194,14 +201,6 @@ def login():
             )
     else:
         return render_template("login.html")
-
-
-@app.route("/home", methods=["GET", "POST"])
-def home():
-    if "username" in session:
-        return redirect(url_for("index"))
-    else:
-        return "Identifiant or Password is wrond!"
 
 
 
