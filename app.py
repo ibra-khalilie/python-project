@@ -65,12 +65,12 @@ app.cli.add_command(init_db_command)
 # ----------------------------------Register client----------------------------------
 
 
-def register_client_to_db(nom, prenom, adresse, tel, username, password):
+def register_client_to_db(name, firstname, adress, phone, username, password):
     connection = get_db()
     cur = connection.cursor()
     cur.execute(
-        "INSERT INTO client(nom, prenom, adresse, tel, username, password) VALUES (?, ?, ?, ?, ?, ?)",
-        (nom, prenom, adresse, tel, username, password),
+        "INSERT INTO client(name, firstname, adress, phone, username, password) VALUES (?, ?, ?, ?, ?, ?)",
+        (name, firstname, adress, phone, username, password),
     )
     connection.commit()
     close_db()
@@ -100,10 +100,10 @@ def check_client(username, password):
 def listOfProducts():
     connection = get_db()
     cur = connection.cursor()
-    cur.execute("SELECT libelle,image,prixUnitaire from PRODUIT")
-    resultats = cur.fetchall()
+    cur.execute("SELECT libelle,image,price from PRODUCT")
+    results = cur.fetchall()
 
-    return resultats
+    return results
 
 
 # ----------------------------------root-----------------------------------------------
@@ -118,14 +118,14 @@ def index():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        name = request.form["nom"]
-        prenom = request.form["prenom"]
-        adresse = request.form["adresse"]
-        tel = request.form["tel"]
+        name = request.form["name"]
+        firstname = request.form["firstname"]
+        adress = request.form["adress"]
+        phone = request.form["phone"]
         username = request.form["username"]
         password = request.form["password"]
 
-        register_client_to_db(name, prenom, adresse, tel, username, password)
+        register_client_to_db(name, firstname, adress, phone, username, password)
         return redirect(url_for("index"))
     else:
         return render_template("register.html")

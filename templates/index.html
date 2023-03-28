@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion de commande</title>
+    <title>casano</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -17,7 +17,7 @@
     <nav class="entete">
         <header class="header">
 
-            <a href="#" class="logo"> <img src="/templates/logo.png" alt=""> <span>Gestion de </span>Commande</a>
+            <a href="#" class="logo"> <img src="/static/img/logo.png" alt=""> <span>Cas</span>ano</a>
 
             <form id="searchbox" method="" action="">
                 <div class="search-input">
@@ -59,7 +59,7 @@
         <article>
             <img src="{{ product.image }}" alt=" image">
             <p>{{ product.libelle }}</p>
-            <p>Prix: {{ product.prixUnitaire }}</p>
+            <p>Prix: {{ product.price }}</p>
         </article>
         {% endfor %}
     </section>
@@ -73,21 +73,21 @@
         <div class="box-container">
 
             <div class="box">
-                <h3>Pays</h3>
+                <h3>Country</h3>
                 <a href="#"> <i class="fas fa-map-marker-alt"></i> France </a>
-                <a href="#"> <i class="fas fa-map-marker-alt"></i> inde </a>
-                <a href="#"> <i class="fas fa-map-marker-alt"></i> afrique </a>
-                <a href="#"> <i class="fas fa-map-marker-alt"></i> australie </a>
-                <a href="#"> <i class="fas fa-map-marker-alt"></i> russie </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> india </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> africa </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> Australia </a>
+                <a href="#"> <i class="fas fa-map-marker-alt"></i> russia </a>
             </div>
 
             <div class="box">
-                <h3>promo et bon plan</h3>
-                <a href="#catalogue"> <i class="fas fa-arrow-right"></i> catalogue </a>
+                <h3>promo and good plan</h3>
+                <a href="#"> <i class="fas fa-arrow-right"></i> catalog </a>
             </div>
 
             <div class="box">
-                <h3>Reseaux</h3>
+                <h3>Networks</h3>
                 <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
                 <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
                 <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
@@ -96,12 +96,10 @@
 
             <div class="box">
                 <h3>service</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> casono drive </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> point retrait casono </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> traiteur casono </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i>drive casano </a>
+                <a href="#"> <i class="fas fa-arrow-right"></i> collection point</a>
                 <a href="#"> <i class="fas fa-arrow-right"></i> scan'Express </a>
             </div>
-
 
         </div>
 
