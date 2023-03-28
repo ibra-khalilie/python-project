@@ -1,11 +1,13 @@
 import secrets
 import sqlite3
+from winreg import HKEY_CURRENT_USER
 
 import click
 from flask import (
     Flask,
     current_app,
     g,
+    jsonify,
     redirect,
     render_template,
     request,
@@ -100,7 +102,7 @@ def check_client(username, password):
 def listOfProducts():
     connection = get_db()
     cur = connection.cursor()
-    cur.execute("SELECT libelle,image,price from PRODUCT")
+    cur.execute("SELECT * from PRODUCT")
     results = cur.fetchall()
 
     return results
@@ -122,12 +124,42 @@ def listProductsOfCustomer(customer_id):
     return productsOfCustomer
 
 
+
+@app.route('/commander', methods=['POST'])
+def commander():
+    # Récupération des données de la commande envoyées dans la requête POST
+    id_product = request.json['id_product']
+    quantity = request.json['quantity']
+    id_customer = request.json['id_customer']
+    
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        
+        cursor.execute("INSERT INTO command (idcustomer, commanddate) VALUES (?, date('now'))", (id_customer,))
+        id_command = cursor.lastrowid
+        
+        cursor.execute("INSERT INTO product_command (idcommand, idProduct, quantity) VALUES (?, ?, ?)", (id_command, id_product, quantity))
+        
+        conn.commit()
+        
+        conn.close()
+        
+        return jsonify({'status': 'success'})
+    
+    except Exception as e:
+        # En cas d'erreur, annulation de la transaction et retour d'un message d'erreur
+        conn.rollback()
+        conn.close()
+       # return jsonify({'status': 'error', 'message': str(e)})
+
 # ----------------------------------root-----------------------------------------------
 
 
 @app.route("/")
 def index():
     products = listOfProducts()
+ 
     return render_template("index.html", products=products)
 
 
@@ -181,3 +213,6 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+    
+    

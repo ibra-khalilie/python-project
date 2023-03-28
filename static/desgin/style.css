@@ -402,6 +402,14 @@ input[type="submit"].compte_champ {
 }
 
 
+button{
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #2a218d88;
+   }
+
 @media(max-width:991px) {
     html {
         font-size: 55%;

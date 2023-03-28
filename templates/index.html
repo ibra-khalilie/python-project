@@ -31,6 +31,7 @@
 
             <div id="login-btn">
                 <bouton class="btn">connection</bouton>
+                <p>Bienvenue {{ username }} !</p>
                 <i class="far fa-user"></i>
             </div>
 
@@ -62,10 +63,12 @@
             <img src="{{ product.image }}" alt=" image">
             <p>{{ product.libelle }}</p>
             <p>Prix: {{ product.price }}</p>
+            <button class="commander" data-product-id="{{ product.idProduct }}">commander</button>
         </article>
         {% endfor %}
     </section>
-
+  
+      
 
 </body>
 
