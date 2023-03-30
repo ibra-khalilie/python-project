@@ -108,50 +108,59 @@ def listOfProducts():
     return results
 
 
-#---list Products Of Customer-------
+# ---list Products Of Customer-------
+
 
 def listProductsOfCustomer(customer_id):
     connexion = get_db()
     cur = connexion.cursor()
-    cur.execute("""SELECT p.libelle, p.price, pc.quantity 
+    cur.execute(
+        """SELECT p.libelle, p.price, pc.quantity 
                    FROM customer c
                    INNER JOIN command cmd ON c.idcustomer = cmd.idcustomer
                    INNER JOIN product_command pc ON cmd.idcommand = pc.idcommand
                    INNER JOIN product p ON pc.idProduct = p.idProduct
                    WHERE c.idcustomer = ?;""",
-                (customer_id,))
+        (customer_id,),
+    )
     productsOfCustomer = cur.fetchall()
     return productsOfCustomer
 
 
-
-@app.route('/commander', methods=['POST'])
+@app.route("/commander", methods=["POST"])
 def commander():
     # Récupération des données de la commande envoyées dans la requête POST
-    id_product = request.json['id_product']
-    quantity = request.json['quantity']
-    id_customer = request.json['id_customer']
-    
+    id_product = request.json["id_product"]
+    quantity = request.json["quantity"]
+    id_customer = request.json["id_customer"]
+
     try:
         conn = get_db()
         cursor = conn.cursor()
-        
-        cursor.execute("INSERT INTO command (idcustomer, commanddate) VALUES (?, date('now'))", (id_customer,))
+
+        cursor.execute(
+            "INSERT INTO command (idcustomer, commanddate) VALUES (?, date('now'))",
+            (id_customer,),
+        )
         id_command = cursor.lastrowid
-        
-        cursor.execute("INSERT INTO product_command (idcommand, idProduct, quantity) VALUES (?, ?, ?)", (id_command, id_product, quantity))
-        
+
+        cursor.execute(
+            "INSERT INTO product_command (idcommand, idProduct, quantity) VALUES (?, ?, ?)",
+            (id_command, id_product, quantity),
+        )
+
         conn.commit()
-        
+
         conn.close()
-        
-        return jsonify({'status': 'success'})
-    
+
+        return jsonify({"status": "success"})
+
     except Exception as e:
         # En cas d'erreur, annulation de la transaction et retour d'un message d'erreur
         conn.rollback()
         conn.close()
-       # return jsonify({'status': 'error', 'message': str(e)})
+    # return jsonify({'status': 'error', 'message': str(e)})
+
 
 # ----------------------------------root-----------------------------------------------
 
@@ -163,11 +172,10 @@ def index():
         username = session["username"]
     else:
         username = None
-        
-    products = listOfProducts()
- 
-    return render_template("index.html", products=products, username=username)
 
+    products = listOfProducts()
+
+    return render_template("index.html", products=products, username=username)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -203,19 +211,39 @@ def login():
         return render_template("login.html")
 
 
-
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("index"))
+
 
 @app.route("/forgetpassword")
 def forgetpassword():
     return render_template("forgetpassword.html")
 
 
+# CART
+
+
+@app.route("/process_cart", methods=["POST"])
+def process_cart():
+    cart_data = request.get_json()
+    total = 0
+    for item in cart_data:
+        total += item["price"] * item["quantity"]
+
+    session["cart_data"] = cart_data
+    session["total"] = total
+
+    return jsonify({"url": url_for("paiement")})
+
+
+@app.route("/paiement")
+def paiement():
+    cart_data = session.get("cart_data", [])
+    total = session.get("total", 0)
+    return render_template("paiement.html", cart_data=cart_data, total=total)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-    
-    
