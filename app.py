@@ -230,9 +230,26 @@ def logout():
     return redirect(url_for("index"))
 
 
-@app.route("/forgetpassword")
+@app.route("/forgetpassword", methods=["GET", "POST"])
 def forgetpassword():
-    return render_template("forgetpassword.html")
+    if request.method == "POST":
+        username = request.form["username"]
+        new_password = request.form["new_password"]
+        
+        connection = get_db()
+        cur = connection.cursor()
+        
+        # Mettre à jour le mot de passe dans la base de données pour l'utilisateur avec le nom d'utilisateur donné
+        cur.execute(
+            "UPDATE customer SET password = ? WHERE username = ?",
+            (new_password, username),
+        )
+        connection.commit()
+        
+        # Rediriger l'utilisateur vers la page de connexion après avoir mis à jour le mot de passe
+        return redirect(url_for("index"))
+    else:
+        return render_template("forgetpassword.html")
 
 
 # CART
