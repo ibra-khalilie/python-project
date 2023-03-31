@@ -35,13 +35,26 @@
                     <button id="logout" type="submit">Déconnexion</button>
                     {{ username }}
                 </form>
+                <div>
+                    <h3>commandes déjà passées ({{ number }})</h3>
+                    <ul>
+                        {% for product in productsOfCustomer %}
+                        <li>{{ product.libelle }} - {{ product.price }} € x {{ product.quantity }}
+                            <button class="cancel-btn" data-id="{{ product.id_command }}"> Annuler</button>
+                        </li>
+
+                        {% endfor %}
+                    </ul>
+                </div>
+
+
                 <div id="cart" class="cart">
                     <h3>Panier</h3>
                     <ul id="cart-items" class="cart-items">
-                   
+
                     </ul>
                     <div id="cart-total" class="cart-total">
-                       
+
                     </div>
                     <button id="payerBtn" class="payerBtn">Payer</button>
                 </div>
@@ -49,9 +62,7 @@
                 <button id="login" class="btn">Connexion</button>
                 {% endif %}
 
-
-                <i class="far fa-user"></i>
-                </div>
+            </div>
 
 
 
@@ -82,7 +93,8 @@
             <img src="{{ product.image }}" alt=" image">
             <p>{{ product.libelle }}</p>
             <p>Prix: {{ product.price }}</p>
-            <button class="commander"  data-product-img="{{product.image}}"  data-product-libelle="{{product.libelle}}"  data-product-price="{{product.price}}" data-product-id="{{ product.idProduct }}">commander</button>
+            <button class="commander" data-product-img="{{product.image}}" data-product-libelle="{{product.libelle}}"
+                data-product-price="{{product.price}}" data-product-id="{{ product.idProduct }}">commander</button>
         </article>
         {% endfor %}
     </section>
@@ -127,84 +139,11 @@
 
         </div>
     </section>
-    
+
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script src="/static/desgin/style.js"></script>
-    <script>
 
-        const panierItems = document.querySelector('#cart-items');
-        const commanderBtns = document.querySelectorAll('.commander');
-        const payerBtn = document.querySelector('#payerBtn');
-        
-
-        commanderBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const productId = e.target.getAttribute('data-product-id');
-                const productPrice = e.target.getAttribute('data-product-price');
-                const productLibelle = e.target.getAttribute('data-product-libelle');
-                const productImg = e.target.getAttribute('data-product-img');
-        
-                const product = {
-                    id: productId,
-                    name: productLibelle,
-                    image: productImg,
-                    price: productPrice,
-                    quantity: 1
-                };
-                addItemToCart(product);
-            });
-        });
-        
-        function addItemToCart(product) {
-            const item = document.createElement('li');
-            item.className = 'cart-item';
-            item.setAttribute('data-product-id', product.id);
-            item.innerHTML = `
-                <img src="${product.image}" alt="${product.name}">
-                <div class="cart-item-info">
-                    <p>${product.name}</p>
-                    <p>Prix: ${product.price}€</p>
-                    <p>Quantité: ${product.quantity}</p>
-                </div>
-            `;
-            panierItems.appendChild(item);
-        
-            item.addEventListener('click', (e) => {
-                const productId = e.currentTarget.getAttribute('data-product-id');
-                alert(`Nom: ${product.name}, Prix: ${product.price}€`);
-            });
-        }
-        
-        payerBtn.addEventListener('click', async () => {
-            const cartItems = document.querySelectorAll('.cart-item');
-            const cartData = [];
-        
-            cartItems.forEach(item => {
-                const productId = item.getAttribute('data-product-id');
-                const name = item.querySelector('.cart-item-info p:nth-child(1)').textContent;
-                const price = parseFloat(item.querySelector('.cart-item-info p:nth-child(2)').textContent.replace('Prix: ', '').replace('€', ''));
-                const quantity = parseInt(item.querySelector('.cart-item-info p:nth-child(3)').textContent.replace('Quantité: ', ''));
-        
-                cartData.push({productId, name, price, quantity});
-            });
-        
-            const response = await fetch('/process_cart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(cartData)
-            });
-        
-            if (response.ok) {
-                const data = await response.json();
-                window.location.href = data.url;
-            } else {
-                // Gérez l'erreur ici
-            }
-        });
-    </script>
 </footer>
 
 </html>

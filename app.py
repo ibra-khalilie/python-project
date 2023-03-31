@@ -85,12 +85,13 @@ def check_client(username, password):
     connection = get_db()
     cur = connection.cursor()
     cur.execute(
-        "SELECT username, password FROM customer WHERE username=? AND password=?",
+        "SELECT idcustomer, username, password FROM customer WHERE username=? AND password=?",
         (username, password),
     )
 
     resultat = cur.fetchone()
     if resultat:
+        session["id_Customer"] = resultat[0]
         return True
     else:
         return False
@@ -111,7 +112,7 @@ def listOfProducts():
 # ---list Products Of Customer-------
 
 
-def listProductsOfCustomer(customer_id):
+def listProductsOfCustomer():
     connexion = get_db()
     cur = connexion.cursor()
     cur.execute(
@@ -121,18 +122,19 @@ def listProductsOfCustomer(customer_id):
                    INNER JOIN product_command pc ON cmd.idcommand = pc.idcommand
                    INNER JOIN product p ON pc.idProduct = p.idProduct
                    WHERE c.idcustomer = ?;""",
-        (customer_id,),
+        (session.get("id_Customer"),),
     )
     productsOfCustomer = cur.fetchall()
     return productsOfCustomer
 
 
-@app.route("/commander", methods=["POST"])
+@app.route("/payer", methods=["POST"])
 def commander():
-    # Récupération des données de la commande envoyées dans la requête POST
-    id_product = request.json["id_product"]
-    quantity = request.json["quantity"]
-    id_customer = request.json["id_customer"]
+    id_customer = session.get("id_Customer")
+    quantity = 1
+    product_ids = session.get("product_ids")
+    print(id_customer)
+    print(product_ids)
 
     try:
         conn = get_db()
@@ -144,10 +146,11 @@ def commander():
         )
         id_command = cursor.lastrowid
 
-        cursor.execute(
-            "INSERT INTO product_command (idcommand, idProduct, quantity) VALUES (?, ?, ?)",
-            (id_command, id_product, quantity),
-        )
+        for id_product in product_ids:
+            cursor.execute(
+                "INSERT INTO product_command (idcommand, idProduct, quantity) VALUES (?, ?, ?)",
+                (id_command, id_product, quantity),
+            )
 
         conn.commit()
 
@@ -156,10 +159,9 @@ def commander():
         return jsonify({"status": "success"})
 
     except Exception as e:
-        # En cas d'erreur, annulation de la transaction et retour d'un message d'erreur
         conn.rollback()
         conn.close()
-    # return jsonify({'status': 'error', 'message': str(e)})
+        return jsonify({"status": "error", "message": str(e)})
 
 
 # ----------------------------------root-----------------------------------------------
@@ -168,14 +170,26 @@ def commander():
 @app.route("/")
 def index():
     products = listOfProducts()
+    productsOfCustomer = None
+    number = 0
+    print(productsOfCustomer)
     if "username" in session:
         username = session["username"]
+        productsOfCustomer = listProductsOfCustomer()
+        number = len(productsOfCustomer)
+
     else:
         username = None
 
     products = listOfProducts()
 
-    return render_template("index.html", products=products, username=username)
+    return render_template(
+        "index.html",
+        products=products,
+        username=username,
+        productsOfCustomer=productsOfCustomer,
+        number=number,
+    )
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -229,12 +243,14 @@ def forgetpassword():
 def process_cart():
     cart_data = request.get_json()
     total = 0
+    product_ids = []
     for item in cart_data:
         total += item["price"] * item["quantity"]
+        product_ids.append(item["productId"])
 
     session["cart_data"] = cart_data
     session["total"] = total
-
+    session["product_ids"] = product_ids
     return jsonify({"url": url_for("paiement")})
 
 
@@ -242,7 +258,14 @@ def process_cart():
 def paiement():
     cart_data = session.get("cart_data", [])
     total = session.get("total", 0)
-    return render_template("paiement.html", cart_data=cart_data, total=total)
+    product_ids = session.get("product_ids")
+
+    return render_template(
+        "paiement.html",
+        cart_data=cart_data,
+        total=total,
+        product_ids=product_ids,
+    )
 
 
 if __name__ == "__main__":

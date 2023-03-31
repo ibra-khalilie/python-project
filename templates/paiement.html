@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,14 +51,19 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Liste des articles</h1>
     <ul>
         {% for item in cart_data %}
-            <li>{{ item.name }} - Quantité: {{ item.quantity }} - Prix: {{ item.price }}€</li>
+        <li>{{ item.name }} - Quantité: {{ item.quantity }} - Prix: {{ item.price }}€</li>
         {% endfor %}
     </ul>
     <h2>Total: {{ total }}€</h2>
-    <button>Payer</button>
+
+    <button class="payer">Payer</button>
+
 </body>
+<script src="/static/desgin/style.js"></script>
+
 </html>

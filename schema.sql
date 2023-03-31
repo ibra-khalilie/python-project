@@ -59,7 +59,7 @@ VALUES
 (10.4,'robe','/static/img/10.jpg'),
 (10.4,'robe','/static/img/11.jpg'),
 (10.4,'robe','/static/img/12.jpg'),
-(10.4,'robe','/static/img/13.jpg'),
+(10.4,'banane','/static/img/13.jpg'),
 (10.4,'robe','/static/img/15.jpg');
 
 INSERT INTO command (idcustomer, commanddate)
