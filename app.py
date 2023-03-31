@@ -249,11 +249,7 @@ def login():
             session["username"] = username
             return redirect(url_for("index"))
         else:
-            return render_template(
-                "login.html", error="Identifiant or Password is wrong!"
-            )
-    else:
-        return render_template("login.html")
+            return "Identifiant or Password is wrong!"
 
 
 # Log out

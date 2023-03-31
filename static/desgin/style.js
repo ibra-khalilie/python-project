@@ -73,7 +73,7 @@ buttons.forEach((button) => {
             })
         })
             .then((response) => {
-                alert("L'opération a été bien reussi");
+                alert("L'opération a été bien reussie");
                 window.location.replace('/')
 
                 if (!response.ok) {
