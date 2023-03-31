@@ -3,17 +3,8 @@ import sqlite3
 from winreg import HKEY_CURRENT_USER
 
 import click
-from flask import (
-    Flask,
-    current_app,
-    g,
-    jsonify,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Flask, current_app, g, jsonify, redirect, render_template,
+                   request, session, url_for)
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -23,7 +14,7 @@ app.config["DATABASE"] = "database.db"
 
 # ---------------------------------Database---------------------------------------
 
-
+# Connection to the database
 def get_db():
     if "db" not in g:
         g.db = sqlite3.connect(
@@ -36,14 +27,14 @@ def get_db():
 
 app.teardown_appcontext
 
-
+# Closing the database
 def close_db(e=None):
     db = g.pop("db", None)
 
     if db is not None:
         db.close()
 
-
+# Initialize the database
 def init_db():
     db = get_db()
 
@@ -232,7 +223,7 @@ def login():
     else:
         return render_template("login.html")
 
-
+# Log out
 @app.route("/logout")
 def logout():
     session.clear()

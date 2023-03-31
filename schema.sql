@@ -48,19 +48,20 @@ VALUES
 INSERT INTO product (price, libelle,image)
 VALUES
 (10,'chemise','/static/img/1.jpg'),
-(20,'montre','/static/img/2.jpg'),
-(10,'ordinateur','/static/img/3.jpg'),
-(10.4,'robe','/static/img/4.jpg'),
-(10.4,'robe','/static/img/5.jpg'),
-(10.4,'robe','/static/img/6.jpg'),
-(10.4,'robe','/static/img/7.jpg'),
-(10.4,'robe','/static/img/8.jpg'),
-(10.4,'robe','/static/img/9.jpg'),
-(10.4,'robe','/static/img/10.jpg'),
-(10.4,'robe','/static/img/11.jpg'),
-(10.4,'robe','/static/img/12.jpg'),
-(10.4,'banane','/static/img/13.jpg'),
-(10.4,'robe','/static/img/15.jpg');
+(50,'montre','/static/img/2.jpg'),
+(400,'ordinateur','/static/img/3.jpg'),
+(2.4,'tarte feuilletée','/static/img/4.jpg'),
+(3.4,'fond de champignons','/static/img/5.jpg'),
+(1,'haricots verts Bonduelle','/static/img/6.jpg'),
+(5,'chocolats Reveillon','/static/img/7.jpg'),
+(5,'pops KitKat','/static/img/8.jpg'),
+(4,'chips Pringles','/static/img/9.jpg'),
+(15,'champagne','/static/img/10.jpg'),
+(4,'bonbons Candies & Co','/static/img/11.jpg'),
+(1.5,'conconbre de Martinique','/static/img/12.jpg'),
+(3,'poireaux Carrefour Bio','/static/img/13.jpg'),
+(5,'mini eggs After Eight','/static/img/14.jpg'),
+(5,'saucisses Les Occitanes','/static/img/15.jpg');
 
 INSERT INTO command (idcustomer, commanddate)
 VALUES

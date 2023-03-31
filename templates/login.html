@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <!--Stylesheets-->
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
@@ -12,10 +13,12 @@
 </head>
 
 <body>
+    <!--Creation of the POST form-->
     <form id="login-form" method="POST" action="{{ url_for('login') }}">
         <div class="form-group">
             <label for="username">Nom d'utilisateur :</label>
             <input type="text" name="username" class="form-control" required>
+            <!--If we had some errors when logging-->
             {% if error and error_field == "username" %}
             <span class="error-message">{{ error }}</span>
             {% endif %}
