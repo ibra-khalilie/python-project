@@ -183,6 +183,14 @@ def index():
 
     products = listOfProducts()
 
+    search_query = request.args.get("search_query")
+    if search_query:
+        products = [
+            product
+            for product in products
+            if search_query.lower() in product[2].lower()
+        ]
+
     return render_template(
         "index.html",
         products=products,

@@ -190,28 +190,24 @@ html {
 }
 
 
+/*------------------------search--------------------------------------------*/
+
 #searchbox {
+    display: inline-block;
+    position: relative;
     border: 3px solid #e8e8e8;
     width: 350px;
     border-radius: 12px;
 }
 
-input:focus::-webkit-input-placeholder {
-    color: transparent;
-}
-
-input:focus:-moz-placeholder {
-    color: transparent;
-}
-
-input:focus::-moz-placeholder {
-    color: transparent;
+.search-wrapper {
+    display: flex;
+    align-items: center;
 }
 
 #searchbox input {
     outline: none;
 }
-
 
 #searchbox input[type="text"] {
     background: url(http://2.bp.blogspot.com/-xpzxYc77ack/VDpdOE5tzMI/AAAAAAAAAeQ/TyXhIfEIUy4/s1600/search-dark.png) no-repeat 10px 6px #fff;
@@ -220,23 +216,23 @@ input:focus::-moz-placeholder {
     border-color: #fff;
     font: bold 12px Arial, Helvetica, Sans-serif;
     color: #bebebe;
-    width: 74.5%;
+    width: 100%;
     padding: 8px 15px 8px 30px;
+    border-radius: 12px 0 0 12px;
 }
-
 
 #button-submit {
     background: red;
     border-width: 0px;
-    border-radius: 12px;
+    border-radius: 0 12px 12px 0;
     max-width: 80px;
-    padding: 9px;
+    padding: 9px 15px;
     text-align: center;
     cursor: pointer;
     font: bold 12px Arial, Helvetica;
     color: #fff;
     text-shadow: 0 1px 0 #555;
-
+    font-size: 16px;
 }
 
 #button-submit:hover {

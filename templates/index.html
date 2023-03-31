@@ -19,9 +19,10 @@
 
             <a href="#" class="logo"> <img src="/static/img/logo.png" alt=""> <span>Cas</span>ano</a>
 
-            <form id="searchbox" method="" action="">
-                <div class="search-input">
-                    <input name="recherche" type="text" size="12" placeholder="Pain, Lait, Oeuf...">
+            <form id="searchbox" method="get" action="">
+                <div class="search-wrapper">
+                    <input name="search_query" value="{{ search_query }}" type="text" size="12"
+                        placeholder="Pain, Lait, Oeuf...">
                     <button id="button-submit" type="submit">Search</button>
                 </div>
             </form>
