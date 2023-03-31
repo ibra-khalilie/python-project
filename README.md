@@ -1,5 +1,12 @@
 # Projet E-commerce
 
+membres : Ibrahima MBODJI (ibra-khalile)
+          Jean Komou (jkomou)
+          Yaya Sakho (Yaya-Sakho)
+          Louis David(lodavid38600)
+
+Nous avons 2 branches qui contiennent le même travail et c'est dans develop ou il y a tous les commits des membres.
+
 Ce projet est un exemple d'application e-commerce développée avec Python et Flask.
 
 ## Prérequis
