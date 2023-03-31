@@ -51,16 +51,16 @@ buttons1.forEach(function (button1) {
     button1.addEventListener("click", function () {
         var productId = this.dataset.productId;
         console.log("ID du produit: " + productId);
-        // Traitez l'ID du produit ici
+
     });
 });
 
 
-// Ajout d'un gestionnaire d'événement sur les boutons "commander"
+
 const buttons = document.querySelectorAll('.payer');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        print("je suis en train de tester")
+
         const quantity = 1;
 
         fetch('/payer', {
@@ -73,6 +73,9 @@ buttons.forEach((button) => {
             })
         })
             .then((response) => {
+                alert("L'opération a été bien reussi");
+                window.location.replace('/')
+
                 if (!response.ok) {
                     throw new Error('Une erreur est survenue lors de la commande.');
                 }
@@ -123,7 +126,7 @@ function addItemToCart(product) {
     panierItems?.appendChild(item);
 
     item.addEventListener('click', (e) => {
-        const productId = e.currentTarget.getAttribute('data-product-id');
+
         alert(`Nom: ${product.name}, Prix: ${product.price}€`);
     });
 }
@@ -159,5 +162,40 @@ payerBtn?.addEventListener('click', async () => {
 
     }
 });
+
+
+const cancel = document.querySelectorAll('.cancelBtn');
+console.log(cancel)
+
+cancel.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        if (!confirm("Voulez-vous vraiment annuler la commande ?")) {
+            return
+        }
+        const id_product = e.target.getAttribute('data-id');
+
+        fetch("/cancel-command", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id_product: id_product
+            })
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    throw new Error("Une erreur est survenue");
+                }
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    });
+});
+
+
 
 

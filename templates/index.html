@@ -11,12 +11,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <link rel="stylesheet" href="/static/desgin/style.css">
+
 </head>
 
 <body>
+
     <nav class="entete">
         <header class="header">
-        <!--Creation of the header of the web page-->
+            <!--Creation of the header of the web page-->
             <a href="#" class="logo"> <img src="/static/img/logo.png" alt=""> <span>Cas</span>ano</a>
 
             <!--Search bar-->
@@ -35,14 +37,16 @@
 
                 <form action="{{ url_for('logout') }}">
                     <button id="logout" type="submit">Déconnexion</button>
-                    {{ username }}
                 </form>
+                <p class="user">Profil : {{ username }}</p>
+
+
                 <div>
                     <h3>commandes déjà passées ({{ number }})</h3>
                     <ul>
                         {% for product in productsOfCustomer %}
                         <li>{{ product.libelle }} - {{ product.price }} € x {{ product.quantity }}
-                            <button class="cancel-btn" data-id="{{ product.id_command }}"> Annuler</button>
+                            <button class="cancelBtn" data-id="{{product.idProduct}}"> Annuler</button>
                         </li>
 
                         {% endfor %}
@@ -102,7 +106,6 @@
     </section>
 
 
-
 </body>
 
 <footer>
@@ -145,8 +148,9 @@
 
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <script src="/static/desgin/style.js"></script>
+
 
 </footer>
+<script src="/static/desgin/style.js"></script>
 
 </html>

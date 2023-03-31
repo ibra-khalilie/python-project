@@ -1,10 +1,18 @@
 import secrets
 import sqlite3
-from winreg import HKEY_CURRENT_USER
 
 import click
-from flask import (Flask, current_app, g, jsonify, redirect, render_template,
-                   request, session, url_for)
+from flask import (
+    Flask,
+    current_app,
+    g,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -13,6 +21,7 @@ app.config["DATABASE"] = "database.db"
 
 
 # ---------------------------------Database---------------------------------------
+
 
 # Connection to the database
 def get_db():
@@ -27,12 +36,14 @@ def get_db():
 
 app.teardown_appcontext
 
+
 # Closing the database
 def close_db(e=None):
     db = g.pop("db", None)
 
     if db is not None:
         db.close()
+
 
 # Initialize the database
 def init_db():
@@ -51,8 +62,6 @@ def init_db_command():
 
 
 app.cli.add_command(init_db_command)
-
-# ----------------------------------End-----------------------------------------------
 
 
 # ----------------------------------Register client----------------------------------
@@ -88,9 +97,7 @@ def check_client(username, password):
         return False
 
 
-# ------list of product----
-
-
+# ------list of products----
 def listOfProducts():
     connection = get_db()
     cur = connection.cursor()
@@ -100,6 +107,28 @@ def listOfProducts():
     return results
 
 
+# cancel command
+@app.route("/cancel-command", methods=["POST"])
+def cancel_command():
+    id_produit = request.json.get("id_product")
+    connection = get_db()
+    cur = connection.cursor()
+
+    try:
+        # find the command ID associated with the product ID
+        cur.execute(
+            "SELECT idcommand FROM product_command WHERE idProduct=?", (id_produit,)
+        )
+        command_id = cur.fetchone()[0]
+
+        # delete the command from the command table and all associated records in the product_command table
+        cur.execute("DELETE FROM command WHERE idcommand=?", (command_id,))
+        connection.commit()
+        return jsonify({"status": "success"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+
+
 # ---list Products Of Customer-------
 
 
@@ -107,7 +136,7 @@ def listProductsOfCustomer():
     connexion = get_db()
     cur = connexion.cursor()
     cur.execute(
-        """SELECT p.libelle, p.price, pc.quantity 
+        """SELECT p.libelle, p.price, pc.quantity,p.idProduct
                    FROM customer c
                    INNER JOIN command cmd ON c.idcustomer = cmd.idcustomer
                    INNER JOIN product_command pc ON cmd.idcommand = pc.idcommand
@@ -119,6 +148,7 @@ def listProductsOfCustomer():
     return productsOfCustomer
 
 
+# valid a command of customers
 @app.route("/payer", methods=["POST"])
 def commander():
     id_customer = session.get("id_Customer")
@@ -144,7 +174,6 @@ def commander():
             )
 
         conn.commit()
-
         conn.close()
 
         return jsonify({"status": "success"})
@@ -155,7 +184,7 @@ def commander():
         return jsonify({"status": "error", "message": str(e)})
 
 
-# ----------------------------------root-----------------------------------------------
+# Principale page
 
 
 @app.route("/")
@@ -166,7 +195,10 @@ def index():
     print(productsOfCustomer)
     if "username" in session:
         username = session["username"]
+
         productsOfCustomer = listProductsOfCustomer()
+        for product in productsOfCustomer:
+            print(product)
         number = len(productsOfCustomer)
 
     else:
@@ -223,6 +255,7 @@ def login():
     else:
         return render_template("login.html")
 
+
 # Log out
 @app.route("/logout")
 def logout():
@@ -235,18 +268,15 @@ def forgetpassword():
     if request.method == "POST":
         username = request.form["username"]
         new_password = request.form["new_password"]
-        
+
         connection = get_db()
         cur = connection.cursor()
-        
-        # Mettre à jour le mot de passe dans la base de données pour l'utilisateur avec le nom d'utilisateur donné
+
         cur.execute(
             "UPDATE customer SET password = ? WHERE username = ?",
             (new_password, username),
         )
         connection.commit()
-        
-        # Rediriger l'utilisateur vers la page de connexion après avoir mis à jour le mot de passe
         return redirect(url_for("index"))
     else:
         return render_template("forgetpassword.html")

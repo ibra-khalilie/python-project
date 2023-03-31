@@ -47,9 +47,9 @@ VALUES
 
 INSERT INTO product (price, libelle,image)
 VALUES
-(10,'chemise','/static/img/1.jpg'),
-(50,'montre','/static/img/2.jpg'),
-(400,'ordinateur','/static/img/3.jpg'),
+(10,'Vin','/static/img/1.jpg'),
+(50,'Poulet','/static/img/2.jpg'),
+(40,'ordiAllumetes','/static/img/3.jpg'),
 (2.4,'tarte feuilletée','/static/img/4.jpg'),
 (3.4,'fond de champignons','/static/img/5.jpg'),
 (1,'haricots verts Bonduelle','/static/img/6.jpg'),
@@ -69,8 +69,5 @@ VALUES
 (2,'2022-01-02'),
 (1,'2023-09-02');
 
-INSERT INTO product_command (idcommand,idProduct,quantity)
-VALUES
-(1,2,2),
-(2,1,10),
-(3,3,8);
+
+
